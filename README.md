@@ -1,6 +1,6 @@
 # SC2 Co-op Random
 
-Vaadin aplication with Spring Boot to generate random StarCraft2 Co-op Commander based on your selection.
+Vaadin application with Spring Boot to generate random StarCraft2 Co-op Commander based on your selection.
 
 
 
