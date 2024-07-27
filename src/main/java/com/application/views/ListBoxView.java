@@ -6,10 +6,13 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Hr;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.listbox.MultiSelectListBox;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.shared.Tooltip;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,26 +68,26 @@ public class ListBoxView extends HorizontalLayout {
                 commanderEntity -> commanders.add(commanderEntity.getName() + " - " + commanderEntity.getPrestige())
         );
 
-//        listBox.setRenderer(new ComponentRenderer<>(
-//                commander -> {
-//                    HorizontalLayout row = new HorizontalLayout();
-//                    row.setAlignItems(Alignment.CENTER);
-//
-//                    String[] splited = commander.split(" - ");
-//                    Span name = new Span(splited[0]);
-//                    Span prestige = new Span(splited[1]);
-//                    prestige.getStyle()
-//                            .set("font-size", "var(--lumo-font-size-s)");
-//
-//                    VerticalLayout column = new VerticalLayout(name, prestige);
-//                    column.setPadding(false);
-//                    column.setSpacing(false);
-//
-//                    row.add(column);
-//
-//                    return row;
-//                }
-//        ));
+        listBox.setRenderer(new ComponentRenderer<>(
+                commander -> {
+                    HorizontalLayout row = new HorizontalLayout();
+                    row.setAlignItems(Alignment.CENTER);
+
+                    String[] splited = commander.split(" - ");
+                    Span name = new Span(splited[0]);
+                    Span prestige = new Span(splited[1]);
+                    prestige.getStyle()
+                            .set("font-size", "var(--lumo-font-size-s)");
+
+                    VerticalLayout column = new VerticalLayout(name, prestige);
+                    column.setPadding(false);
+                    column.setSpacing(false);
+
+                    row.add(column);
+
+                    return row;
+                }
+        ));
 
         listBox.setItems(commanders);
 
