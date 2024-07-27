@@ -9,6 +9,7 @@ import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.listbox.MultiSelectListBox;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.shared.Tooltip;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class ListBoxView extends HorizontalLayout {
     private static CommanderRepo commanderRepo;
 
     @Autowired
-    public ListBoxView(CommanderRepo commanderRepo, CommanderInitializer commanderInitializer) {
+    public ListBoxView(CommanderRepo commanderRepo) {
         this.commanderRepo = commanderRepo;
 
         add(new H3("Commanders:"));
@@ -49,6 +50,10 @@ public class ListBoxView extends HorizontalLayout {
             Notification.show(selectedItems.toArray()[randomNumber].toString(), 5000, Notification.Position.MIDDLE);
         });
         generateButton.addClickShortcut(Key.ENTER);
+        generateButton.setTooltipText("Executable by ENTER key")
+                .withHoverDelay(600)
+                .withHideDelay(200)
+                .setPosition(Tooltip.TooltipPosition.BOTTOM);
         return generateButton;
     }
 
