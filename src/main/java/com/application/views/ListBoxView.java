@@ -1,11 +1,11 @@
 package com.application.views;
 
 import com.application.initialization.CommanderInitializer;
-import com.application.model.CommanderEntity;
 import com.application.repository.CommanderRepo;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.listbox.MultiSelectListBox;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -41,7 +41,6 @@ public class ListBoxView extends HorizontalLayout {
         setMargin(true);
 
         add(listBox, generateButton);
-
     }
 
     private static Button addGenerateButton(MultiSelectListBox<String> listBox) {
@@ -60,10 +59,18 @@ public class ListBoxView extends HorizontalLayout {
 
         List<String> commanderNames = new ArrayList<>();
         commanderRepo.findAll().forEach(
-                commanderEntity -> commanderNames.add(commanderEntity.getName())
+                commanderEntity -> {
+                    for (int i = 0; i <= 3; i++) {
+                        commanderNames.add(commanderEntity.getName() + " - P" + i);
+                    }
+                }
         );
 
         listBox.setItems(commanderNames);
-    }
 
+        for (int i = 3; i < commanderNames.size(); i++) {
+            listBox.addComponents(commanderNames.get(i), new Hr());
+            i += 3;
+        }
+    }
 }
