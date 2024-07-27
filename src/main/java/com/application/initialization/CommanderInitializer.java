@@ -11,7 +11,8 @@ import java.util.List;
 @Component
 public class CommanderInitializer {
     private static CommanderRepo commanderRepo;
-    private final List<String> COMMANDER_NAMES = Arrays.asList("Raynor", "Kerrigan", "Artanis");
+    private final List<String> COMMANDER_NAMES = Arrays.asList("Raynor", "Kerrigan", "Artanis", "Swann", "Zagara", "Vorazun", "Karax", "Abathur", "Alarak", "Nova", "Stukov", "Fenix", "Dehaka", "Han and Horner", "Tychus", "Zeratul");
+    
 
     @Autowired
     public CommanderInitializer(CommanderRepo commanderRepo) {
