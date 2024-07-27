@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -57,12 +58,12 @@ public class ListBoxView extends HorizontalLayout {
     private static void addCommandersToListBox(MultiSelectListBox<String> listBox) {
         commanderInitializer.initializeCommanders();
 
-        ArrayList<String> strings = new ArrayList<>();
-        for (CommanderEntity commander : commanderRepo.findAll()) {
-            strings.add(commander.getName());
-        }
+        List<String> commanderNames = new ArrayList<>();
+        commanderRepo.findAll().forEach(
+                commanderEntity -> commanderNames.add(commanderEntity.getName())
+        );
 
-        listBox.setItems(strings);
+        listBox.setItems(commanderNames);
     }
 
 }
