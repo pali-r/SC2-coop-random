@@ -1,30 +1,35 @@
 package com.application.views;
 
-import com.application.CallMeDatabase;
+import com.application.model.CommanderEntity;
+import com.application.repository.CommanderRepo;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.listbox.MultiSelectListBox;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.Set;
 
+@Component
 @PageTitle("List Box View")
 @Route(value = "list-box", layout = MainLayout.class)
 public class ListBoxView extends HorizontalLayout {
+    private static CommanderRepo commanderRepo;
 
-    public ListBoxView() {
+    @Autowired
+    public ListBoxView(CommanderRepo commanderRepo) {
+        this.commanderRepo = commanderRepo;
+
         add(new H3("Commanders:"));
 
         MultiSelectListBox<String> listBox = new MultiSelectListBox<>();
-
         addCommandersToListBox(listBox);
 
         Button generateButton = addGenerateButton(listBox);
@@ -32,6 +37,7 @@ public class ListBoxView extends HorizontalLayout {
         setMargin(true);
 
         add(listBox, generateButton);
+
     }
 
     private static Button addGenerateButton(MultiSelectListBox<String> listBox) {
@@ -46,13 +52,24 @@ public class ListBoxView extends HorizontalLayout {
     }
 
     private static void addCommandersToListBox(MultiSelectListBox<String> listBox) {
-        CallMeDatabase database = new CallMeDatabase();
-        ArrayList<String> commanders = database.getAllCommanders();
+        CommanderEntity commanderEntity = new CommanderEntity();
+        commanderEntity.setName("raynor");
+        commanderRepo.save(commanderEntity);
 
-        listBox.setItems(commanders);
-        for (int i = 0; i < 2; i++) {
-            listBox.addComponents(commanders.get(3 + (i*4)), new Hr());
+        CommanderEntity commanderEntity2 = new CommanderEntity();
+        commanderEntity2.setName("kerrigan");
+        commanderRepo.save(commanderEntity2);
+
+        CommanderEntity commanderEntity3 = new CommanderEntity();
+        commanderEntity3.setName("artanis");
+        commanderRepo.save(commanderEntity3);
+
+        ArrayList<String> strings = new ArrayList<>();
+        for (CommanderEntity commander : commanderRepo.findAll()) {
+            strings.add(commander.getName());
         }
+
+        listBox.setItems(strings);
     }
 
 }
