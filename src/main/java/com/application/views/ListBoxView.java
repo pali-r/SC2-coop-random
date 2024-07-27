@@ -1,5 +1,6 @@
 package com.application.views;
 
+import com.application.initialization.CommanderInitializer;
 import com.application.model.CommanderEntity;
 import com.application.repository.CommanderRepo;
 import com.vaadin.flow.component.Key;
@@ -22,10 +23,12 @@ import java.util.Set;
 @Route(value = "list-box", layout = MainLayout.class)
 public class ListBoxView extends HorizontalLayout {
     private static CommanderRepo commanderRepo;
+    private static CommanderInitializer commanderInitializer;
 
     @Autowired
-    public ListBoxView(CommanderRepo commanderRepo) {
+    public ListBoxView(CommanderRepo commanderRepo, CommanderInitializer commanderInitializer) {
         this.commanderRepo = commanderRepo;
+        this.commanderInitializer = commanderInitializer;
 
         add(new H3("Commanders:"));
 
@@ -52,17 +55,7 @@ public class ListBoxView extends HorizontalLayout {
     }
 
     private static void addCommandersToListBox(MultiSelectListBox<String> listBox) {
-        CommanderEntity commanderEntity = new CommanderEntity();
-        commanderEntity.setName("raynor");
-        commanderRepo.save(commanderEntity);
-
-        CommanderEntity commanderEntity2 = new CommanderEntity();
-        commanderEntity2.setName("kerrigan");
-        commanderRepo.save(commanderEntity2);
-
-        CommanderEntity commanderEntity3 = new CommanderEntity();
-        commanderEntity3.setName("artanis");
-        commanderRepo.save(commanderEntity3);
+        commanderInitializer.initializeCommanders();
 
         ArrayList<String> strings = new ArrayList<>();
         for (CommanderEntity commander : commanderRepo.findAll()) {
