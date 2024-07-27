@@ -11,6 +11,7 @@ public class CommanderEntity {
     @GeneratedValue
     private Long id;
     private String name;
+    private String prestige;
 
     public void setId(Long id) {
         this.id = id;
@@ -26,6 +27,14 @@ public class CommanderEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPrestige() {
+        return prestige;
+    }
+
+    public void setPrestige(String prestige) {
+        this.prestige = prestige;
     }
 
 }

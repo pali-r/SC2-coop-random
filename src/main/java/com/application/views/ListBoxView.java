@@ -24,12 +24,10 @@ import java.util.Set;
 @Route(value = "list-box", layout = MainLayout.class)
 public class ListBoxView extends HorizontalLayout {
     private static CommanderRepo commanderRepo;
-    private static CommanderInitializer commanderInitializer;
 
     @Autowired
     public ListBoxView(CommanderRepo commanderRepo, CommanderInitializer commanderInitializer) {
         this.commanderRepo = commanderRepo;
-        this.commanderInitializer = commanderInitializer;
 
         add(new H3("Commanders:"));
 
@@ -55,21 +53,36 @@ public class ListBoxView extends HorizontalLayout {
     }
 
     private static void addCommandersToListBox(MultiSelectListBox<String> listBox) {
-        commanderInitializer.initializeCommanders();
-
-        List<String> commanderNames = new ArrayList<>();
+        List<String> commanders = new ArrayList<>();
         commanderRepo.findAll().forEach(
-                commanderEntity -> {
-                    for (int i = 0; i <= 3; i++) {
-                        commanderNames.add(commanderEntity.getName() + " - P" + i);
-                    }
-                }
+                commanderEntity -> commanders.add(commanderEntity.getName() + " - " + commanderEntity.getPrestige())
         );
 
-        listBox.setItems(commanderNames);
+//        listBox.setRenderer(new ComponentRenderer<>(
+//                commander -> {
+//                    HorizontalLayout row = new HorizontalLayout();
+//                    row.setAlignItems(Alignment.CENTER);
+//
+//                    String[] splited = commander.split(" - ");
+//                    Span name = new Span(splited[0]);
+//                    Span prestige = new Span(splited[1]);
+//                    prestige.getStyle()
+//                            .set("font-size", "var(--lumo-font-size-s)");
+//
+//                    VerticalLayout column = new VerticalLayout(name, prestige);
+//                    column.setPadding(false);
+//                    column.setSpacing(false);
+//
+//                    row.add(column);
+//
+//                    return row;
+//                }
+//        ));
 
-        for (int i = 3; i < commanderNames.size(); i++) {
-            listBox.addComponents(commanderNames.get(i), new Hr());
+        listBox.setItems(commanders);
+
+        for (int i = 3; i < commanders.size(); i++) {
+            listBox.addComponents(commanders.get(i), new Hr());
             i += 3;
         }
     }
