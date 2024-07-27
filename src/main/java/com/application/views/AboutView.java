@@ -26,6 +26,7 @@ public class AboutView extends VerticalLayout {
         add(header);
         add(new H3("Current possible selections:"));
         add(new H3("- List Box"));
+        add(new H3("- Combo Box"));
 
         setSizeFull();
         setJustifyContentMode(JustifyContentMode.CENTER);

@@ -44,11 +44,13 @@ public class ListBoxView extends HorizontalLayout {
 
     private static Button addGenerateButton(MultiSelectListBox<String> listBox) {
         Button generateButton = new Button("Generate");
-        generateButton.addClickListener(e -> {
-            Set<String> selectedItems = listBox.getSelectedItems();
-            int randomNumber = new Random().nextInt(selectedItems.size());
-            Notification.show(selectedItems.toArray()[randomNumber].toString(), 5000, Notification.Position.MIDDLE);
-        });
+        generateButton.addClickListener(
+                e -> {
+                    Set<String> selectedItems = listBox.getSelectedItems();
+                    int randomNumber = new Random().nextInt(selectedItems.size());
+                    Notification.show(selectedItems.toArray()[randomNumber].toString(),
+                            5000, Notification.Position.MIDDLE);
+                });
         generateButton.addClickShortcut(Key.ENTER);
         generateButton.setTooltipText("Executable by ENTER key")
                 .withHoverDelay(600)

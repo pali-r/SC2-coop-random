@@ -51,6 +51,7 @@ public class MainLayout extends AppLayout {
 
         nav.addItem(new SideNavItem("About", AboutView.class, LineAwesomeIcon.FILE.create()));
         nav.addItem(new SideNavItem("List Box", ListBoxView.class, LineAwesomeIcon.LIST_ALT.create()));
+        nav.addItem(new SideNavItem("Combo Box", MultiSelectComboBoxView.class, LineAwesomeIcon.CLIPBOARD_LIST_SOLID.create()));
 
         return nav;
     }
